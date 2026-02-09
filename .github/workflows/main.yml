@@ -1,12 +1,13 @@
 name: Check and Build
 
 env:
-  kernel_repository: PixelExperience-Devices/kernel_xiaomi_sdm845
-  kernel_branch: fourteen
-  device: dipper
-  clang_version: r487747c
+  kernel_repository: xiaohu224/android_kernel_xiaomi_sdm660
+  kernel_branch: lineage-20
+  device: wayne
+  clang_version: r450784e
   defconfig: |
-    dipper_defconfig
+    vendor/xiaomi/sdm660_defconfig
+    vendor/xiaomi/wayne.config
   kernel_patch: |
     backport-path-umount.patch
   kernelsu_patch: |
