@@ -2,7 +2,7 @@ name: Check and Build
 
 env:
   kernel_repository: xiaohu224/android_kernel_xiaomi_sdm660
-  kernel_branch: lineage-20
+  kernel_branch: LKGeek-V5+
   device: wayne
   clang_version: r450784e
   defconfig: |
