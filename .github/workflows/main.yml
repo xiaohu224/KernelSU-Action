@@ -2,13 +2,13 @@ name: Check and Build
 
 env:
   kernel_repository: xiaohu224/android_kernel_xiaomi_sdm660
-  kernel_branch: lineage-20
+  kernel_branch: LKGeek-V5-Enhanced
   device: wayne
   clang_version: r450784e
   defconfig: |
     vendor/xiaomi/sdm660_defconfig
     vendor/xiaomi/wayne.config
-    vendor/xiaomi/moon_lite.config
+    vendor/moon_lite.config
   kernel_patch: |
     backport-path-umount.patch
   kernelsu_patch: |
