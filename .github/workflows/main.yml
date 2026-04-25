@@ -6,7 +6,7 @@ env:
   device: polaris
   clang_version: r450784e
   defconfig: |
-    vendor/xiaomi/sdm845-common.config
+    vendor/sdm845-perf_defconfig
     vendor/xiaomi/polaris.config
   kernel_patch: |
   kernelsu_patch: |
