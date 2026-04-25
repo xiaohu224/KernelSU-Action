@@ -1,16 +1,14 @@
 name: Check and Build
 
 env:
-  kernel_repository: xiaohu224/android_kernel_xiaomi_sdm660
-  kernel_branch: lineage-20
-  device: wayne
+  kernel_repository: LKGeek-Team/android_kernel_xiaomi_sdm845_419
+  kernel_branch: lineage-23.2_xiaomi
+  device: polaris
   clang_version: r450784e
   defconfig: |
-    vendor/xiaomi/sdm660_defconfig
-    vendor/xiaomi/wayne.config
-    vendor/xiaomi/moon_lite.config
+    vendor/xiaomi/sdm845-common.config
+    vendor/xiaomi/polaris.config
   kernel_patch: |
-    backport-path-umount.patch
   kernelsu_patch: |
 
 on:
@@ -95,34 +93,6 @@ jobs:
               echo "Merging defconfig: $line"
               cat arch/arm64/configs/$line >>arch/arm64/configs/merged_defconfig
           done <<<"$defconfig"
-
-      - name: Setup KernelSU
-        run: |
-          # https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html
-          curl -L https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh | bash -s -- $kernelsu_remote_version
-          echo 'CONFIG_KPROBES=y' >>arch/arm64/configs/merged_defconfig
-          echo 'CONFIG_HAVE_KPROBES=y' >>arch/arm64/configs/merged_defconfig
-          echo 'CONFIG_KPROBE_EVENTS=y' >>arch/arm64/configs/merged_defconfig
-
-      - name: Apply kernel patch
-        run: |
-          while read -r line; do
-              if [ -z "$line" ] || [[ "$line" == "#"* ]]; then
-                  continue
-              fi
-              echo "Applying kernel patch: $line"
-              git apply "this-repo/patches/$line"
-          done <<<"$kernel_patch"
-
-      - name: Apply KernelSU patch
-        run: |
-          while read -r line; do
-              if [ -z "$line" ] || [[ "$line" == "#"* ]]; then
-                  continue
-              fi
-              echo "Applying KernelSU patch: $line"
-              git apply -p2 --directory KernelSU/kernel "this-repo/patches/$line"
-          done <<<"$kernelsu_patch"
 
       - name: "AOSP-Clang: Restore"
         id: aosp_clang_restore
